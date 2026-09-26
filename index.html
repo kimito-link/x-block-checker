@@ -251,7 +251,7 @@
   <div class="container">
     <div class="header">
       <h1>X Block Checker</h1>
-      <p>公開データのパターン分析でブロック疑い度を推定</p>
+      <p>ブロック疑い度を推測します（あくまで推測データです）</p>
     </div>
 
     <div class="input-section">
@@ -275,7 +275,7 @@
 
     <div class="loading" id="loading">
       <div class="spinner"></div>
-      <p>公開データを分析中...</p>
+      <p>推測中...</p>
     </div>
 
     <div class="results" id="results">
@@ -286,7 +286,7 @@
       </div>
 
       <div class="chart-section">
-        <div class="chart-title">指標別スコア</div>
+        <div class="chart-title">指標別スコア（推測）</div>
         <div class="chart-container">
           <canvas id="radarChart"></canvas>
         </div>
@@ -295,7 +295,7 @@
       <div class="metrics-grid" id="metricsGrid"></div>
 
       <div class="disclaimer">
-        ※このツールは公開データのパターン分析による推定値です。確実なブロック判定ではありません。
+        ※表示される数値はあくまで推測データです。Xのデータは取得・分析しておらず、ユーザー名から機械的に算出した値のため、実際のブロック状態とは関係ありません。
       </div>
     </div>
   </div>
@@ -355,34 +355,34 @@
     }
 
     function getScoreMessage(score) {
-      if (score >= 80) return '⚠️ ブロックされている可能性が高いです';
-      if (score >= 60) return '🔍 ブロックされている疑いがあります';
-      if (score >= 40) return '⚡ 関係性に変化がある可能性があります';
-      if (score >= 20) return '✓ 通常の関係性と推定されます';
-      return '✓ ブロックされていない可能性が高いです';
+      if (score >= 80) return '⚠️ 推測では、ブロックされている可能性が高めです';
+      if (score >= 60) return '🔍 推測では、ブロックの疑いがあります';
+      if (score >= 40) return '⚡ 推測では、関係性に変化があるかもしれません';
+      if (score >= 20) return '✓ 推測では、通常の関係性です';
+      return '✓ 推測では、ブロックされていない可能性が高めです';
     }
 
     function getMetricInfo(key) {
       const info = {
         followAsymmetry: {
           name: 'フォロー非対称性',
-          desc: 'AがBをフォローしているが、Bのフォロワー一覧にAが存在しない場合のスコア'
+          desc: 'フォロー関係の片寄りを想定した推測値'
         },
         interactionDrop: {
           name: 'インタラクション断絶',
-          desc: '過去のリプライ・いいねのやり取りから急に停止したパターンの検出'
+          desc: 'やり取りの途切れを想定した推測値'
         },
         searchVisibility: {
           name: '検索可視性',
-          desc: 'Bの公開ツイートがAのアカウントから検索・閲覧できない状況の推定'
+          desc: '相手の投稿の見えにくさを想定した推測値'
         },
         networkSeparation: {
           name: 'ネットワーク分離',
-          desc: '共通フォロワー率の異常な低下、ソーシャルグラフ上の距離拡大'
+          desc: 'つながりの離れ具合を想定した推測値'
         },
         mutualBlockPattern: {
           name: '相互ブロックパターン',
-          desc: '双方のアカウント活動パターンからブロック関係を推定'
+          desc: 'お互いのブロック関係を想定した推測値'
         }
       };
       return info[key];
