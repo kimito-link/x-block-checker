@@ -222,6 +222,38 @@
       margin-top: 20px;
     }
 
+    .warning {
+      background: rgba(244, 33, 46, 0.1);
+      border: 1px solid #f4212e;
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    
+    .warning h2 {
+      font-size: 16px;
+      color: #f4212e;
+      margin-bottom: 8px;
+    }
+    
+    .warning ul {
+      padding-left: 20px;
+      margin-top: 8px;
+    }
+    
+    .warning strong {
+      color: #ffad1f;
+    }
+    
+    .input-note {
+      font-size: 12px;
+      color: #00ba7c;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    
     .loading {
       display: none;
       text-align: center;
@@ -254,6 +286,18 @@
       <p>ブロック疑い度を推測します（あくまで推測データです）</p>
     </div>
 
+    <div class="warning">
+      <h2>⚠️ 「ブロックチェッカー」を装った乗っ取り詐欺に注意</h2>
+      <p>XのIDやパスワード、2段階認証コードを入力させる「ブロックされているか調べるサイト」は、<strong>アカウントを乗っ取るフィッシング詐欺</strong>の可能性が高いです。Xのブロック状況を外部サイトが正確に調べる方法はありません。</p>
+      <p>このページは<strong>パスワードもログインも一切求めません</strong>。</p>
+      <p style="margin-top:8px">もし他のサイトに入力してしまったら、すぐに：</p>
+      <ul>
+        <li>Xのパスワードを変更する</li>
+        <li>「設定 → セキュリティとアカウントアクセス → アプリとセッション」から全セッションをログアウトする</li>
+        <li>同じパスワードを使っている他のサービスも変更する</li>
+      </ul>
+    </div>
+
     <div class="input-section">
       <div class="input-row">
         <div class="input-group">
@@ -270,6 +314,7 @@
           <input type="text" id="userB" placeholder="@username" value="@user_b">
         </div>
       </div>
+      <p class="input-note">🔒 入力するのはユーザー名だけ。パスワードは不要です</p>
       <button class="check-btn" onclick="analyze()">ブロック疑い度を計算</button>
     </div>
 
