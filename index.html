@@ -3,8 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>X Block Checker - ブロック疑い度診断</title>
+  <title>君斗りんくの推測ブロックチェッカー | キミトリンク</title>
+  <meta name="description" content="ログイン不要・ユーザー名だけで遊べる、君斗りんくの推測ブロックチェッカー。ブロックチェッカーを装った乗っ取り詐欺への注意もまとめています。">
+  <link rel="icon" href="assets/logo_kimito-link_RGB_favi_blue.png">
   <style>
+    :root {
+      --navy: #00427B;
+      --navy-dark: #002d55;
+      --orange: #DD6500;
+      --bg: #fffaf4;
+      --card: #ffffff;
+      --line: #eadfd2;
+      --text: #1f2933;
+      --muted: #5f6b76;
+      --high: #d93025;
+      --medium: #DD6500;
+      --low: #1e8e3e;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -12,40 +28,142 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: #0f0f23;
-      color: #e7e9ea;
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
       min-height: 100vh;
-      padding: 24px;
+      padding: 24px 16px;
+      line-height: 1.6;
     }
 
     .container {
-      max-width: 640px;
+      max-width: 680px;
       margin: 0 auto;
     }
 
-    .header {
+    /* ===== ヒーロー（ロゴが主役） ===== */
+    .hero {
       text-align: center;
-      margin-bottom: 32px;
+      margin-bottom: 28px;
     }
 
-    .header h1 {
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      background: linear-gradient(90deg, #1d9bf0, #00d4aa);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .brand-logo {
+      width: 260px;
+      max-width: 70vw;
+      height: auto;
+      display: block;
+      margin: 0 auto 12px;
     }
 
-    .header p {
+    .hero h1 {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .hero h1 span {
+      display: inline-block;
+    }
+
+    .hero p {
       font-size: 14px;
-      color: #71767b;
+      color: var(--muted);
     }
 
+    .no-login {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      background: rgba(30, 142, 62, 0.12);
+      color: var(--low);
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    /* ===== キャラの掛け合い ===== */
+    .talk {
+      background: var(--card);
+      border: 2px solid var(--high);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+
+    .talk h2 {
+      font-size: 18px;
+      color: var(--high);
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .line {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .line.right {
+      flex-direction: row-reverse;
+    }
+
+    .avatar {
+      flex: 0 0 auto;
+      width: 72px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .avatar img {
+      width: 72px;
+      height: 72px;
+      display: block;
+    }
+
+    .bubble {
+      background: #f3f7fb;
+      border: 1px solid #cfdceb;
+      border-radius: 14px;
+      padding: 10px 14px;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+
+    .line.right .bubble {
+      background: #fff3e6;
+      border-color: #f3d3b0;
+    }
+
+    .bubble strong {
+      color: var(--high);
+    }
+
+    .rescue {
+      background: #fdecea;
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 14px;
+      margin-top: 6px;
+    }
+
+    .rescue p {
+      font-weight: 700;
+      color: var(--high);
+    }
+
+    .rescue ul {
+      padding-left: 20px;
+      margin-top: 6px;
+    }
+
+    /* ===== 入力 ===== */
     .input-section {
-      background: #16181c;
-      border: 1px solid #2f3336;
+      background: var(--card);
+      border: 1px solid var(--line);
       border-radius: 16px;
       padding: 24px;
       margin-bottom: 24px;
@@ -54,7 +172,7 @@
     .input-row {
       display: flex;
       gap: 16px;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       align-items: flex-end;
       flex-wrap: wrap;
     }
@@ -67,49 +185,58 @@
     .input-group label {
       display: block;
       font-size: 13px;
-      font-weight: 500;
+      font-weight: 600;
       margin-bottom: 8px;
-      color: #71767b;
+      color: var(--muted);
     }
 
     .input-group input {
       width: 100%;
       padding: 12px 16px;
-      background: #202327;
-      border: 1px solid #333639;
+      background: #fff;
+      border: 1px solid #d5dbe1;
       border-radius: 8px;
-      color: #e7e9ea;
-      font-size: 15px;
-      transition: all 0.2s;
+      color: var(--text);
+      font-size: 16px;
+      transition: border-color 0.2s;
     }
 
     .input-group input:focus {
       outline: none;
-      border-color: #1d9bf0;
+      border-color: var(--navy);
     }
 
     .arrow-icon {
-      color: #71767b;
+      color: var(--muted);
       padding-bottom: 12px;
+    }
+
+    .input-note {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--low);
+      margin-bottom: 16px;
+      text-align: center;
     }
 
     .check-btn {
       width: 100%;
       padding: 14px;
-      background: #1d9bf0;
-      color: white;
+      background: var(--navy);
+      color: #fff;
       border: none;
       border-radius: 9999px;
       font-size: 16px;
       font-weight: 700;
       cursor: pointer;
-      transition: opacity 0.2s;
+      transition: background 0.2s;
     }
 
     .check-btn:hover {
-      opacity: 0.9;
+      background: var(--navy-dark);
     }
 
+    /* ===== 結果 ===== */
     .results {
       display: none;
     }
@@ -119,10 +246,10 @@
     }
 
     .score-card {
-      background: #16181c;
-      border: 1px solid #2f3336;
+      background: var(--card);
+      border: 1px solid var(--line);
       border-radius: 16px;
-      padding: 32px;
+      padding: 32px 20px;
       margin-bottom: 20px;
       text-align: center;
     }
@@ -130,16 +257,16 @@
     .score-value {
       font-size: 64px;
       font-weight: 800;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
     }
 
-    .score-value.high { color: #f4212e; }
-    .score-value.medium { color: #ffad1f; }
-    .score-value.low { color: #00ba7c; }
+    .score-value.high { color: var(--high); }
+    .score-value.medium { color: var(--medium); }
+    .score-value.low { color: var(--low); }
 
     .score-label {
       font-size: 14px;
-      color: #71767b;
+      color: var(--muted);
       margin-bottom: 16px;
     }
 
@@ -147,12 +274,12 @@
       font-size: 15px;
       padding: 12px 16px;
       border-radius: 8px;
-      background: #202327;
+      background: #f5f1ec;
     }
 
     .chart-section {
-      background: #16181c;
-      border: 1px solid #2f3336;
+      background: var(--card);
+      border: 1px solid var(--line);
       border-radius: 16px;
       padding: 24px;
       margin-bottom: 20px;
@@ -161,6 +288,7 @@
     .chart-title {
       font-size: 16px;
       font-weight: 700;
+      color: var(--navy);
       margin-bottom: 16px;
     }
 
@@ -171,14 +299,14 @@
 
     .metrics-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 16px;
       margin-top: 20px;
     }
 
     .metric-item {
-      background: #16181c;
-      border: 1px solid #2f3336;
+      background: var(--card);
+      border: 1px solid var(--line);
       border-radius: 12px;
       padding: 16px;
     }
@@ -192,7 +320,7 @@
 
     .metric-name {
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .metric-score {
@@ -202,62 +330,31 @@
       border-radius: 9999px;
     }
 
-    .metric-score.high { background: rgba(244, 33, 46, 0.2); color: #f4212e; }
-    .metric-score.medium { background: rgba(255, 173, 31, 0.2); color: #ffad1f; }
-    .metric-score.low { background: rgba(0, 186, 124, 0.2); color: #00ba7c; }
+    .metric-score.high { background: rgba(217, 48, 37, 0.12); color: var(--high); }
+    .metric-score.medium { background: rgba(221, 101, 0, 0.12); color: var(--medium); }
+    .metric-score.low { background: rgba(30, 142, 62, 0.12); color: var(--low); }
 
     .metric-desc {
       font-size: 12px;
-      color: #71767b;
+      color: var(--muted);
       line-height: 1.5;
     }
 
     .disclaimer {
-      background: #202327;
+      background: #f5f1ec;
       border-radius: 8px;
       padding: 12px 16px;
       font-size: 12px;
-      color: #71767b;
+      color: var(--muted);
       text-align: center;
       margin-top: 20px;
     }
 
-    .warning {
-      background: rgba(244, 33, 46, 0.1);
-      border: 1px solid #f4212e;
-      border-radius: 16px;
-      padding: 20px 24px;
-      margin-bottom: 24px;
-      font-size: 14px;
-      line-height: 1.7;
-    }
-    
-    .warning h2 {
-      font-size: 16px;
-      color: #f4212e;
-      margin-bottom: 8px;
-    }
-    
-    .warning ul {
-      padding-left: 20px;
-      margin-top: 8px;
-    }
-    
-    .warning strong {
-      color: #ffad1f;
-    }
-    
-    .input-note {
-      font-size: 12px;
-      color: #00ba7c;
-      margin-bottom: 16px;
-      text-align: center;
-    }
-    
     .loading {
       display: none;
       text-align: center;
       padding: 40px;
+      color: var(--muted);
     }
 
     .loading.active {
@@ -267,8 +364,8 @@
     .spinner {
       width: 40px;
       height: 40px;
-      border: 3px solid #333639;
-      border-top-color: #1d9bf0;
+      border: 3px solid var(--line);
+      border-top-color: var(--navy);
       border-radius: 50%;
       animation: spin 1s linear infinite;
       margin: 0 auto 16px;
@@ -277,31 +374,82 @@
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
+
+    /* ===== フッター ===== */
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .footer a {
+      color: var(--navy);
+      font-weight: 700;
+    }
+
+    .footer-chars {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .footer-chars img {
+      width: 56px;
+      height: 56px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="header">
-      <h1>X Block Checker</h1>
+    <!-- ヒーロー: ロゴを主役に置く -->
+    <header class="hero">
+      <a href="https://kimito-link.com/" target="_blank" rel="noopener">
+        <img class="brand-logo" src="assets/logo_kimito-link_RGB_maru_ginga.png"
+             width="800" height="600" fetchpriority="high" alt="キミトリンク Kimito-Link">
+      </a>
+      <h1><span>君斗りんくの</span><span>推測ブロックチェッカー</span></h1>
       <p>ブロック疑い度を推測します（あくまで推測データです）</p>
-    </div>
+      <div class="no-login">🔒 ログインは不要です</div>
+    </header>
 
-    <div class="warning">
+    <!-- キャラの掛け合い: 詐欺サイトへの注意 -->
+    <section class="talk" aria-label="乗っ取り詐欺への注意">
       <h2>⚠️ 「ブロックチェッカー」を装った乗っ取り詐欺に注意</h2>
-      <p>XのIDやパスワード、2段階認証コードを入力させる「ブロックされているか調べるサイト」は、<strong>アカウントを乗っ取るフィッシング詐欺</strong>の可能性が高いです。Xのブロック状況を外部サイトが正確に調べる方法はありません。</p>
-      <p>このページは<strong>パスワードもログインも一切求めません</strong>。</p>
-      <p style="margin-top:8px">もし他のサイトに入力してしまったら、すぐに：</p>
-      <ul>
-        <li>Xのパスワードを変更する</li>
-        <li>「設定 → セキュリティとアカウントアクセス → アプリとセッション」から全セッションをログアウトする</li>
-        <li>同じパスワードを使っている他のサービスも変更する</li>
-      </ul>
-    </div>
 
+      <div class="line">
+        <div class="avatar"><img src="assets/tanunee.png" alt="">たぬ姉</div>
+        <div class="bubble">ねえ、ブロックされてるか調べられるサイトがあるって聞いたんだけど…IDとパスワードを入れるだけなんだって。</div>
+      </div>
+
+      <div class="line right">
+        <div class="avatar"><img src="assets/link.png" alt="">りんく</div>
+        <div class="bubble">待って！ID・パスワード・2段階認証コードを入力させるサイトは、<strong>アカウントを乗っ取るフィッシング詐欺</strong>の可能性が高いよ。Xのブロック状況を外部サイトが正確に調べる方法はないんだ。</div>
+      </div>
+
+      <div class="line">
+        <div class="avatar"><img src="assets/konta.png" alt="">こん太</div>
+        <div class="bubble">このページは<strong>ログイン不要</strong>！入れるのはユーザー名だけで、パスワードは一切いらないよ。</div>
+      </div>
+
+      <div class="rescue">
+        <p>もし他のサイトに入力してしまったら、すぐに：</p>
+        <ul>
+          <li>Xのパスワードを変更する</li>
+          <li>「設定 → セキュリティとアカウントアクセス → アプリとセッション」から全セッションをログアウトする</li>
+          <li>同じパスワードを使っている他のサービスも変更する</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 入力 -->
     <div class="input-section">
       <div class="input-row">
         <div class="input-group">
-          <label>チェックするユーザー</label>
+          <label for="userA">チェックするユーザー</label>
           <input type="text" id="userA" placeholder="@username" value="@user_a">
         </div>
         <div class="arrow-icon">
@@ -310,11 +458,11 @@
           </svg>
         </div>
         <div class="input-group">
-          <label>対象ユーザー</label>
+          <label for="userB">対象ユーザー</label>
           <input type="text" id="userB" placeholder="@username" value="@user_b">
         </div>
       </div>
-      <p class="input-note">🔒 入力するのはユーザー名だけ。パスワードは不要です</p>
+      <p class="input-note">🔒 ログインは不要です。入力するのはユーザー名だけ・パスワードも不要</p>
       <button class="check-btn" onclick="analyze()">ブロック疑い度を計算</button>
     </div>
 
@@ -323,6 +471,7 @@
       <p>推測中...</p>
     </div>
 
+    <!-- 結果 -->
     <div class="results" id="results">
       <div class="score-card">
         <div class="score-value" id="totalScore">0%</div>
@@ -343,11 +492,23 @@
         ※表示される数値はあくまで推測データです。Xのデータは取得・分析しておらず、ユーザー名から機械的に算出した値のため、実際のブロック状態とは関係ありません。
       </div>
     </div>
+
+    <!-- フッター -->
+    <footer class="footer">
+      <div class="footer-chars">
+        <img src="assets/link.png" alt="りんく" loading="lazy">
+        <img src="assets/konta.png" alt="こん太" loading="lazy">
+        <img src="assets/tanunee.png" alt="たぬ姉" loading="lazy">
+      </div>
+      <p>提供：<a href="https://kimito-link.com/" target="_blank" rel="noopener">キミトリンク（Kimito-Link）</a></p>
+    </footer>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
   <script>
     let radarChart = null;
+
+    const COLORS = { high: '#d93025', medium: '#DD6500', low: '#1e8e3e' };
 
     function seededRandom(seed) {
       let x = Math.sin(seed) * 10000;
@@ -437,11 +598,6 @@
       const userA = document.getElementById('userA').value.trim() || '@user_a';
       const userB = document.getElementById('userB').value.trim() || '@user_b';
 
-      if (!userA || !userB) {
-        alert('両方のユーザー名を入力してください');
-        return;
-      }
-
       document.getElementById('loading').classList.add('active');
       document.getElementById('results').classList.remove('active');
 
@@ -454,11 +610,11 @@
 
         document.getElementById('scoreMessage').textContent = getScoreMessage(result.total);
 
-        updateChart(result.metrics);
-        updateMetricsGrid(result.metrics);
-
         document.getElementById('loading').classList.remove('active');
         document.getElementById('results').classList.add('active');
+
+        updateChart(result.metrics);
+        updateMetricsGrid(result.metrics);
       }, 1500);
     }
 
@@ -486,9 +642,7 @@
       ];
 
       const avgScore = data.reduce((a, b) => a + b, 0) / data.length;
-      let color = '#00ba7c';
-      if (avgScore >= 70) color = '#f4212e';
-      else if (avgScore >= 40) color = '#ffad1f';
+      const color = COLORS[getScoreClass(avgScore)];
 
       radarChart = new Chart(ctx, {
         type: 'radar',
@@ -516,16 +670,17 @@
               min: 0,
               ticks: {
                 stepSize: 20,
-                color: '#71767b'
+                color: '#5f6b76',
+                backdropColor: 'transparent'
               },
               grid: {
-                color: '#2f3336'
+                color: '#e3e8ee'
               },
               angleLines: {
-                color: '#2f3336'
+                color: '#e3e8ee'
               },
               pointLabels: {
-                color: '#e7e9ea',
+                color: '#1f2933',
                 font: { size: 11 }
               }
             }
